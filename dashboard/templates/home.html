@@ -1,0 +1,230 @@
+<html>
+    <head>
+    
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="style.css" rel="stylesheet">
+        <style>
+
+
+
+            #map {
+                height: 100%;
+            }
+            html, body {
+            height: 100%;
+            margin: 0;
+            padding: 5;
+            }
+            .uptxt{
+                color: white;
+            }
+
+        </style>
+
+
+
+
+
+    </head>
+
+
+            <body>
+
+
+                <div class="row">
+
+                    <div class="col-md-4" style="background:white">
+
+                        {% for x,y,z,w,v in detail %}
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+
+                                <i style="font-size:60px" class="fa">&#xf2be;</i>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                {{x}}<br>{{y}}<br>{{z}}
+
+                            </div>
+
+                            <div class="col-md-3">
+
+                                <i style="font-size:20px ; color:green ; transform:rotate(-90deg)" class="fa fa-battery-full"></i>
+
+                                <i style="font-size:20px" class="fa fa-signal"></i>
+
+                                {% ifequal  w 'STOP' %}
+
+                                <i style="font-size:20px; color:crimson ;transform: scaleX(-1)" class="fa fa-truck"></i>
+
+                                <br><br>
+
+                                <div style="color:red">{{w}}
+
+                                </div>
+
+                                {% endifequal %}
+
+                                {% ifequal w 'SCHEDULED' %}
+
+                                <i style="font-size:20px; color:orange ;transform: scaleX(-1)" class="fa fa-truck"></i>
+
+                                <br><br>
+
+                                <div style="color:#FFC300">{{w}}
+
+                                </div>
+
+                                {% endifequal %}
+
+                                {% ifequal w 'MOVING' %}
+
+                                <i style="font-size:20px; color:green ;transform: scaleX(-1)" class="fa fa-truck"></i>
+
+                                <br><br>
+
+                                <div style="color:green">{{w}}
+
+                                </div>
+
+                                {% endifequal %}
+
+                            </div>
+
+                        </div>
+
+                        <br>
+
+                        <div style="background:blue" >
+
+                                <p class="uptxt">Last Updated : {{v}} sec ago</p>
+
+                        </div>
+
+                        <br>
+
+                        {% endfor %}
+                
+                    </div>
+
+                    <div class="col-md-8">
+
+                        <div id="map">
+
+                        </div>
+
+
+
+
+                        <script>
+
+                        function initMap() {
+    
+                            var v = {
+                                info: '<strong>Indira Gandhi International Airport</strong><br>\
+                                        New Delhi, India 110037<br>\
+                                        <a href="https://www.google.com/maps/dir//Indira+Gandhi+International+Airport,+New+Delhi,+Delhi/@28.5561579,77.0648524,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x390d1b85fc2a2d89:0xbef376182c43ed9d!2m2!1d77.0999578!2d28.5561624">Get Directions</a>',
+                                lat: 28.56,
+                                long: 77.10
+                                    };
+
+
+                            var w = {
+                                info: '<strong>Bhiwani District</strong><br>\
+                                        Haryana, India<br>\
+                                        PIN-127021<br>\
+                                        <a href="https://www.google.com/maps/dir//Bhiwani,+Haryana/@28.7104549,75.6899672,10z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3912612b5c6fb30f:0x60b51e3b2e1d8ae1!2m2!1d75.9927652!2d28.7751693">Get Directions</a>',
+                                lat: 28.803012,
+                                long: 76.320164
+                                    };
+
+
+                            var x = {
+                                info: '<strong>Kolivery Village</strong><br>\
+                                        Mumbai, India 400007<br>\
+                                        <a href="https://www.google.com/maps/dir//Kolivery+Village,+Santacruz+East,+Mumbai,+Maharashtra/@19.0753731,72.8312118,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3be7c8f0b94fd7f7:0x1a13a6c698509b70!2m2!1d72.8663173!2d19.0753764">Get Directions</a>',
+                                lat: 19.0760,
+                                long: 72.8777
+                                    };
+
+
+                            var y = {
+                                info: '<strong>Amritsar</strong><br>\
+                                        Punjab, India 143001<br>\
+                                        <a href="https://www.google.com/maps/dir//Amritsar,+Punjab/@31.6339745,74.8371588,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x391964aa569e7355:0xeea2605bee84ef7d!2m2!1d74.8722642!2d31.6339793">Get Directions</a>',
+                                lat: 31.6340,
+                                long: 74.8723
+                                    };
+
+
+                            var z = {
+                                info: '<strong>Green Cross Laboratory</strong><br>\
+                                        Agrasen Tower<br>Ahmedabad, India 380001<br>\
+                                        <a href="https://www.google.com/maps/dir//Agrasen+Tower,+Civil+Hospital+Road,+Girdhar+Nagar,+Ahmedabad,+Gujarat/@23.0520738,72.5651163,13z/data=!4m8!4m7!1m0!1m5!1m1!1s0x395e84104d4946e9:0xdd46b3e1bc824869!2m2!1d72.6002218!2d23.0520777">Get Directions</a>',
+                                lat: 23.0225,
+                                long: 72.5714
+                                };
+
+
+                            var locations = [
+                                            [v.info,v.lat, v.long, 0],
+                                            [w.info,w.lat, w.long, 1],
+                                            [x.info,x.lat, x.long, 2],
+                                            [y.info,y.lat, y.long, 2],
+                                            [z.info,z.lat, z.long, 2]
+                                            ];
+
+
+                            var map = new google.maps.Map(document.getElementById('map'), {
+                            zoom: 4,
+                            center: new google.maps.LatLng(25, 75),
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                            });
+
+
+                            var infowindow = new google.maps.InfoWindow({});
+
+                            var marker, i , ii;
+
+                            for (i = 0; i < locations.length; i++) {
+
+                                    marker = new google.maps.Marker({
+                                    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                                    map: map
+                                    });
+        
+                                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                                    return function () {
+                                    infowindow.setContent(locations[i][0]);
+                                    infowindow.open(map, marker);
+                                    }
+
+
+                                    })(marker, i));        
+        
+                            }
+                        }
+
+                        </script>
+
+
+
+
+                        <script async defer 
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1n-MPY75TOP0NyuerfltiEuiaZV7NeQg&callback=initMap">
+                        </script>
+
+
+                    </div>
+
+                </div>
+            </body>
+
+</html>
